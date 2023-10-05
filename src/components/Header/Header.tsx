@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Logo from "./Header/Logo";
-import Nav from "./Header/Nav";
+import Logo from "./Logo";
+import Nav from "./Nav";
 
 export default function Header() {
     return (
