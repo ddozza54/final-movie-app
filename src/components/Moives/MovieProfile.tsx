@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IMovie, makeImagePath } from '../api';
+import { IMovie, makeImagePath } from '../../api';
 
 export default function MovieProfile({ poster_path, title }: IMovie) {
     return (
