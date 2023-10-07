@@ -3,11 +3,13 @@ import MovieProfile from "./MovieProfile";
 import { IMovie } from "../../api";
 
 export default function Movies({ data }) {
+    console.log(data)
     return (
         <MoviesGrid>
             {data.results.map((movie: IMovie) =>
                 <MovieProfile
                     key={movie.id}
+                    id={movie.id}
                     poster_path={movie.poster_path}
                     title={movie.title} />
             )}

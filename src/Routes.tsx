@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import ComingSoon from "./pages/ComingSoon";
 import NowPlaying from "./pages/NowPlaying";
 import ErrorPage from "./pages/ErrorPage";
+import MovieDetail from "./components/Moives/MovieDetail";
 
 const router = createBrowserRouter([
     {
@@ -13,15 +14,33 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "",
-                element: <Home />
+                element: <Home />,
+                children: [
+                    {
+                        path: "detail/:id",
+                        element: <MovieDetail />
+                    }
+                ]
             },
             {
                 path: "coming-soon",
-                element: <ComingSoon />
+                element: <ComingSoon />,
+                children: [
+                    {
+                        path: "detail/:id",
+                        element: <MovieDetail />
+                    }
+                ]
             },
             {
-                path: "/now-playing",
-                element: <NowPlaying />
+                path: "now-playing",
+                element: <NowPlaying />,
+                children: [
+                    {
+                        path: "detail/:id",
+                        element: <MovieDetail />
+                    }
+                ]
             }
         ]
     }
