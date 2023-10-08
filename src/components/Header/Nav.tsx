@@ -39,6 +39,12 @@ align-items: center;
 `;
 const NavLink = styled(Link)`
     text-decoration: none;
+    color: black;
+    font-weight: 600;
+    &:hover{
+    color: var(--main-color-red);
+    transform: scale(1.1);
+}
 `;
 
 const Circle = styled(motion.div)`
