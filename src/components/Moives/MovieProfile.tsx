@@ -17,7 +17,7 @@ export default function MovieProfile({ poster_path, title, id }: IMovie) {
     return (
         <>
             <PorfileWrapper
-                layoutId='modal'
+                layoutId={id + 'modal'}
                 onClick={handleProfileClick}>
                 <ProfileImg src={makeImagePath(poster_path)} />
                 {title}

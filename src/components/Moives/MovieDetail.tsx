@@ -23,8 +23,9 @@ export default function MovieDetail() {
     return (
         isLoading ? <span>Loading...</span> :
             <MovieModal
-                layoutId='movieProfile'
-                imgpath={makeImagePath(data.poster_path)}>
+                key={id + "modal"}
+                layoutId={id + 'modal'}
+                imgpath={makeImagePath(data.poster_path)} >
                 <CloseButton onClick={handleModalClose}>
                     <XMarkIcon />
                 </CloseButton>
@@ -42,7 +43,7 @@ export default function MovieDetail() {
                     {data.production_countries.map((contry: ProductionCountry) => <span>{contry.name}</span>)}
                     <span>{data.vote_average}</span>
                 </DetailBox>
-            </MovieModal>
+            </MovieModal >
     )
 }
 
