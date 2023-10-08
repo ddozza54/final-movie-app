@@ -6,12 +6,13 @@ import MovieDetail from './MovieDetail';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
+
 export default function MovieProfile({ poster_path, title, id }: IMovie) {
     const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenAtom);
     const navigate = useNavigate();
     const handleProfileClick = () => {
-        setIsModalOpen(prev => !prev)
-        navigate(`detail/${id}`);
+        setIsModalOpen(prev => !prev);
+        isModalOpen ? navigate(-1) : navigate(`detail/${id}`);
     }
 
     return (
