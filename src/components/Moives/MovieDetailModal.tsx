@@ -1,25 +1,27 @@
 import styled from "styled-components";
 import { XMarkIcon } from "../../assets/icons/XMarkIcon";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { isModalOpenAtom } from "../atoms";
 import { useQuery } from "@tanstack/react-query";
 import { Genre, ProductionCountry, getMovie, makeImagePath } from "../../api";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
-export default function MovieDetail() {
+export default function MovieDetailModal() {
     // const modalRef = useRef(null);
     const { id } = useParams();
     const navigate = useNavigate();
+    const isModalOpen = useRecoilValue(isModalOpenAtom);
     const setIsModalOpen = useSetRecoilState(isModalOpenAtom);
     const handleModalClose = () => {
         setIsModalOpen(prev => !prev)
-        navigate(-1);
+        isModalOpen ? navigate('../') : navigate(-1);
     }
     const { isLoading, data } = useQuery({
         queryKey: ['movieDetail', id],
         queryFn: () => getMovie(`${id}`)
     })
+
     return (
         isLoading ? <span>Loading...</span> :
             <MovieModal
@@ -30,26 +32,33 @@ export default function MovieDetail() {
                     <XMarkIcon />
                 </CloseButton>
                 <DetailBox>
-                    <h1>{data.title}</h1>
-                    {data.homepage && <Link target="_blank" to={data.homepage}>영화 홈페이지</Link>}
-                    <div>
-                        <h3>Genres</h3>
-                        {data.genres?.map((genre: Genre) => <span>{genre.name}</span>)}
-                    </div>
-                    <span>{data.runtime}분</span>
-                    <span>{data.release_date.slice(0, 4)}</span>
-                    <span>{data.overview}</span>
-                    <span>국가</span>
-                    {data.production_countries.map((contry: ProductionCountry) => <span>{contry.name}</span>)}
-                    <span>{data.vote_average}</span>
+                    <Title>{data.title} ({data.release_date.slice(0, 4)})</Title>
+                    <Text>별점: {data.vote_average.toFixed(1)}</Text>
+
+                    <TextBox>
+                        <Text>장르: </Text>
+                        {data.genres?.map((genre: Genre, i: number) => <ItemSpans
+                            key={data.id + 'genre' + i}
+                        >{genre.name}</ItemSpans>)}
+                    </TextBox>
+                    <Text>상영시간: {data.runtime}분</Text>
+                    <TextBox>
+                        <Text>국가:</Text>
+                        {data.production_countries.map((contry: ProductionCountry, i: number) =>
+                            <ItemSpans
+                                key={data.id + 'contry' + i}
+                            >{contry.name}</ItemSpans>)}
+                    </TextBox>
+                    <Text>{data.overview}</Text>
+                    {data.homepage && <LinkText target="_blank" to={data.homepage}>👉공식 홈페이지</LinkText>}
                 </DetailBox>
             </MovieModal >
     )
 }
 
 const MovieModal = styled(motion.div) <{ imgpath: string }>`
-    width: 30rem;
-    height: 40rem;
+    width: 70%;
+    height: 80%;
     position: fixed;
     background-color: var(--main-color-red);
     top: 50%;
@@ -86,7 +95,26 @@ const DetailBox = styled.div`
     flex-direction: column;
     position: relative;
     color: white;
-    bottom: 30%;
+    bottom: 10%;
 padding: 1rem;
 `
-
+const Title = styled.h1`
+    font-size: xx-large;
+    font-weight: 800;
+    margin-bottom: 1rem;
+`
+const TextBox = styled.div`
+    display: flex;
+    justify-content: flex-starts;
+    align-items: center;
+`
+const ItemSpans = styled.span`
+    margin-left: 0.3rem;
+`
+const Text = styled.span`
+font-size: large;
+margin-bottom: 0.5rem;
+`;
+const LinkText = styled(Link)`
+    color: white;
+`

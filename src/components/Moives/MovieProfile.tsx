@@ -1,8 +1,8 @@
 import styled from 'styled-components';
+import MovieDetailModal from './MovieDetailModal';
 import { IMovie, makeImagePath } from '../../api';
 import { useRecoilState } from 'recoil';
 import { isModalOpenAtom } from '../atoms';
-import MovieDetail from './MovieDetail';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
@@ -20,14 +20,16 @@ export default function MovieProfile({ poster_path, title, id }: IMovie) {
             <PorfileWrapper
                 layoutId={id + 'modal'}
                 onClick={handleProfileClick}>
-                <ProfileImg src={makeImagePath(poster_path)} />
-                {title}
+                <ProfileImg
+                    whileHover={{ scale: 1.05 }}
+                    src={makeImagePath(poster_path)} />
+                <Title>{title}</Title>
             </PorfileWrapper>
             {isModalOpen &&
                 <motion.div
                     layoutId='modal'
                 >
-                    <MovieDetail />
+                    <MovieDetailModal />
                 </motion.div>
             }
         </>
@@ -41,10 +43,14 @@ justify-content: center;
 align-items: center;
 &:hover{
     cursor: pointer;
+    color: var(--main-color-red);
 }
 `;
-const ProfileImg = styled.img`
+const ProfileImg = styled(motion.img)`
     width: 100%;
     border-radius: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin: 1rem;
 `;
+const Title = styled.h2`
+font-size: large;
+font-weight: 600`

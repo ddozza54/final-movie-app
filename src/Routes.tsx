@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import ComingSoon from "./pages/ComingSoon";
 import NowPlaying from "./pages/NowPlaying";
 import ErrorPage from "./pages/ErrorPage";
-import MovieDetail from "./components/Moives/MovieDetail";
+import MovieDetail from "./components/Moives/MovieDetailModal";
 
 const router = createBrowserRouter([
     {
