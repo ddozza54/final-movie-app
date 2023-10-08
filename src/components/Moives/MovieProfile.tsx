@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { isModalOpenAtom } from '../atoms';
 import MovieDetail from './MovieDetail';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export default function MovieProfile({ poster_path, title, id }: IMovie) {
     const [isModalOpen, setIsModalOpen] = useRecoilState(isModalOpenAtom);
@@ -15,16 +16,24 @@ export default function MovieProfile({ poster_path, title, id }: IMovie) {
 
     return (
         <>
-            <PorfileWrapper onClick={handleProfileClick}>
+            <PorfileWrapper
+                layoutId='modal'
+                onClick={handleProfileClick}>
                 <ProfileImg src={makeImagePath(poster_path)} />
                 {title}
             </PorfileWrapper>
-            {isModalOpen && <MovieDetail />}
+            {isModalOpen &&
+                <motion.div
+                    layoutId='modal'
+                >
+                    <MovieDetail />
+                </motion.div>
+            }
         </>
     );
 }
 
-const PorfileWrapper = styled.div`
+const PorfileWrapper = styled(motion.div)`
     display: flex;
 flex-direction: column;
 justify-content: center;
@@ -37,4 +46,4 @@ const ProfileImg = styled.img`
     width: 100%;
     border-radius: 1.5rem;
     margin-bottom: 0.5rem;
-`
+`;

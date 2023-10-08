@@ -8,7 +8,7 @@ export default function Nav() {
         <nav>
             <NavUl>
                 <NavItem>
-                    <NavLink to='/'>POPLAR</NavLink>
+                    <NavLink to='/'>POPULAR</NavLink>
                     {pathname === '/' && <Circle layoutId='circle' />}
                 </NavItem>
                 <NavItem>

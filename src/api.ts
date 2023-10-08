@@ -63,7 +63,7 @@ interface BelongsToCollection {
     backdrop_path: string;
 }
 
-interface Genre {
+export interface Genre {
     id: number;
     name: string;
 }
@@ -75,7 +75,7 @@ interface ProductionCompany {
     origin_country: string;
 }
 
-interface ProductionCountry {
+export interface ProductionCountry {
     iso_3166_1: string;
     name: string;
 }

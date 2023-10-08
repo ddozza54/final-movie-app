@@ -4,13 +4,13 @@ import Movies from '../components/Moives/Movies';
 
 export default function Home() {
     const { isLoading, data } = useQuery({
-        queryKey: ['popularMovies'],
+        queryKey: ['movies', 'popular'],
         queryFn: getPopular
     });
     return (
         <div>
             {isLoading ? <span>Loading...</span>
-                : <Movies data={data} />
+                : <Movies data={data.results} />
             }
         </div>
     );

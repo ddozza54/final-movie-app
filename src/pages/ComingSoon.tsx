@@ -4,13 +4,13 @@ import Movies from "../components/Moives/Movies";
 
 export default function ComingSoon() {
     const { isLoading, data } = useQuery({
-        queryKey: ['coming-soon'],
+        queryKey: ['movies', 'coming-soon'],
         queryFn: getComingSoon
     });
     return (
         <div>
             {isLoading ? <span>Loading...</span>
-                : <Movies data={data} />
+                : <Movies data={data.results} />
             }
         </div>
     );
